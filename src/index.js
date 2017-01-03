@@ -152,7 +152,6 @@ class App extends Component {
         <Welcome />
         <BasicData name={this.state.basicData.name} gender={this.state.basicData.gender} weight={this.state.basicData.weight} onChange={this.onBasicDataChange} />
         {remember}
-        <button onClick={this.check} />
         {rows}
         <Calculator drinks={this.state.drinks} weight={this.state.basicData.weight} gender={this.state.basicData.gender} />
       </div>
