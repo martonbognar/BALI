@@ -59,11 +59,15 @@ class BasicData extends Component {
 class Drink extends Component {
   constructor(props) {
     super(props);
+    this.state = {name: props.name, amount: props.amount, strength: props.strength, startTime: props.startTime, finishTime: props.finishTime};
   }
 
   render() {
     return (
-      <br />
+      <div className='drink'>
+        <p>{this.state.name}: {this.state.amount} cl of {this.state.strength}% alcohol</p>
+        <p>Started drinking at {this.state.startTime}, finished at {this.state.finishTime}</p>
+      </div>
     );
   }
 }
@@ -78,7 +82,9 @@ class App extends Component {
         gender: "female",
         weight: 0
       },
-      drinks: [],
+      drinks: [
+        {id: 1, name: "Example drink 1", amount: 50, strength: 4.3, startTime: 1483457356, finishTime: 1483458356},
+      ],
       exported: false
     };
 
@@ -99,12 +105,19 @@ class App extends Component {
     const localStorageExists = typeof(Storage) !== "undefined";
     const remember = localStorageExists ? <input type='checkbox' onClick={this.toggleSave} /> : <p>Your browser does not support local storage</p>;
 
+    let rows = [];
+
+    this.state.drinks.forEach(function (drink) {
+      rows.push(<Drink name={drink.name} amount={drink.amount} strength={drink.strength} startTime={drink.startTime} finishTime={drink.finishTime} />)
+    });
+
     return (
       <div>
         <Welcome />
         <BasicData name={this.state.basicData.name} gender={this.state.basicData.gender} weight={this.state.basicData.weight} onChange={this.onBasicDataChange} />
         {remember}
         <button onClick={this.check} />
+        {rows}
       </div>
     );
   }
