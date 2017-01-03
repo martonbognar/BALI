@@ -17,7 +17,7 @@ class BasicData extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {name: '', weight: 0, gender: 'female', exported: false};
+    this.state = {name: props.name, weight: props.weight, gender: props.gender};
     this.changeName = this.changeName.bind(this);
     this.changeGender = this.changeGender.bind(this);
     this.changeWeight = this.changeWeight.bind(this);
@@ -38,6 +38,7 @@ class BasicData extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    this.props.onChange(this.state);
   }
 
   render() {
@@ -49,17 +50,61 @@ class BasicData extends Component {
           <option value='male'>Male</option>
         </select>
         <input type='number' min='0' placeholder='Weight (kg)' step='0.01' required value={this.state.weight} onChange={this.changeWeight} />
+        <input type='submit' />
       </form>
     );
   }
 }
 
-class App extends Component {
+class Drink extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
+    return (
+      <br />
+    );
+  }
+}
+
+class App extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      basicData: {
+        name: "",
+        gender: "female",
+        weight: 0
+      },
+      drinks: [],
+      exported: false
+    };
+
+    this.onBasicDataChange = this.onBasicDataChange.bind(this);
+    this.toggleSave = this.toggleSave.bind(this);
+  }
+
+  onBasicDataChange(data) {
+    this.setState({basicData: data});
+    alert(JSON.stringify(data));
+  }
+
+  toggleSave() {
+    this.setState({exported: !this.state.exported});
+  }
+
+  render() {
+    const localStorageExists = typeof(Storage) !== "undefined";
+    const remember = localStorageExists ? <input type='checkbox' onClick={this.toggleSave} /> : <p>Your browser does not support local storage</p>;
+
     return (
       <div>
         <Welcome />
-        <BasicData />
+        <BasicData name={this.state.basicData.name} gender={this.state.basicData.gender} weight={this.state.basicData.weight} onChange={this.onBasicDataChange} />
+        {remember}
+        <button onClick={this.check} />
       </div>
     );
   }
