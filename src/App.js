@@ -9,24 +9,28 @@ class App extends Component {
   constructor() {
     super();
 
+    let localStorageExists = typeof(Storage) !== "undefined";
+
     this.state = {
       basicData: {
-        name: "",
-        gender: "female",
-        weight: 0
+        name: localStorageExists && localStorage.name ? localStorage.name : "",
+        gender: localStorageExists && localStorage.gender ? localStorage.gender : "female",
+        weight: localStorageExists && localStorage.weight ? localStorage.weight : 0
       },
       drinks: [],
-      exported: false,
-      keygen: 0
+      exported: localStorageExists,
+      keygen: 0,
+      canSave: localStorageExists,
     };
 
     this.onBasicDataChange = this.onBasicDataChange.bind(this);
     this.onNewDrinkSubmit = this.onNewDrinkSubmit.bind(this);
     this.toggleSave = this.toggleSave.bind(this);
+    this.saveData = this.saveData.bind(this);
   }
 
   onBasicDataChange(data) {
-    this.setState({basicData: data});
+    this.setState({basicData: data}, this.saveData);
   }
 
   onNewDrinkSubmit(data) {
@@ -38,12 +42,25 @@ class App extends Component {
   }
 
   toggleSave() {
-    this.setState({exported: !this.state.exported});
+    this.setState({exported: !this.state.exported}, this.saveData);
+  }
+
+  saveData() {
+    if (this.state.canSave) {
+      if (this.state.exported) {
+        localStorage.name = this.state.basicData.name;
+        localStorage.gender = this.state.basicData.gender;
+        localStorage.weight = this.state.basicData.weight;
+      } else {
+        localStorage.removeItem('name');
+        localStorage.removeItem('gender');
+        localStorage.removeItem('weight');
+      }
+    }
   }
 
   render() {
-    const localStorageExists = typeof(Storage) !== "undefined";
-    const remember = localStorageExists ? <input type='checkbox' onClick={this.toggleSave} /> : <p>Your browser does not support local storage</p>;
+    const remember = this.state.canSave ? <div className='remember'><input type='checkbox' checked={this.state.exported} onChange={this.toggleSave} id='remember-box' /><label htmlFor='remember-box'>Remember my data</label></div> : <p>Your browser does not support local storage</p>;
 
     let rows = [];
 

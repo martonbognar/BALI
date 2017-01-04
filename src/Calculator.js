@@ -9,7 +9,7 @@ class Calculator extends Component {
   }
 
   calculateEbac() {
-    if (this.props.drinks.length == 0) {
+    if (this.props.drinks.length === 0) {
       return 0;
     }
 
