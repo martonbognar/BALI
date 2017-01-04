@@ -4,12 +4,13 @@ class Drink extends Component {
   constructor(props) {
     super(props);
     this.state = {id: props.id, name: props.name, amount: props.amount, strength: props.strength, startTime: props.startTime, finishTime: props.finishTime};
-    alert(JSON.stringify(props));
+    // alert(JSON.stringify(props));
 
     this.onFinish = this.onFinish.bind(this);
   }
 
   onFinish() {
+    this.setState({finishTime: new Date()});
     this.props.onFinish(this.state.id);
   }
 

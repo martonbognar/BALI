@@ -36,19 +36,25 @@ class App extends Component {
 
   onNewDrinkSubmit(data) {
     data.key = this.state.keygen;
-    let tempDrinks = this.state.drinks;
-    tempDrinks.push(data);
     this.setState({keygen: this.state.keygen + 1});
-    this.setState({drinks: tempDrinks});
+    this.setState({drinks: this.state.drinks.concat([data])});
   }
 
   onFinishedDrink(key) {
+    // commented code would be nicer but does not work
+
+    // let tempIndex = -1;
     let tempDrinks = this.state.drinks;
     tempDrinks.forEach(function (drink, index) {
       if (drink.key === key) {
+        // tempIndex = index;
         tempDrinks[index].finishTime = new Date();
       }
     });
+    // if (tempIndex !== -1) {
+    //   this.setState({drinks[tempIndex].finishTime: new Date()});
+    // }
+
     this.setState({drinks: tempDrinks});
   }
 
@@ -74,13 +80,12 @@ class App extends Component {
     const remember = this.state.canSave ? <div className='remember'><input type='checkbox' checked={this.state.exported} onChange={this.toggleSave} id='remember-box' /><label htmlFor='remember-box'>Remember my data</label></div> : <p>Your browser does not support local storage</p>;
 
     let rows = [];
-    alert(JSON.stringify(this.state.drinks));
 
     let localThis = this;
 
     this.state.drinks.forEach(function (drink) {
-      rows.push(<Drink key={drink.key} id={drink.key} name={drink.name} amount={drink.amount} strength={drink.strength} startTime={drink.startTime} finishTime={drink.finishTime} onFinish={localThis.onFinishedDrink} />);
-      alert('pushing');
+      let comp = <Drink key={drink.key} id={drink.key} name={drink.name} amount={drink.amount} strength={drink.strength} startTime={drink.startTime} finishTime={drink.finishTime} onFinish={localThis.onFinishedDrink} />;
+      rows.push(comp);
     });
 
     return (
