@@ -15,7 +15,7 @@ class NewDrink extends Component {
   }
 
   resetState() {
-    this.state = {name: "", amount: 0, strength: 0, startTime: new Date(), finishTime: new Date()};
+    this.state = {name: "", amount: 0, strength: 0, startTime: new Date(), finishTime: null};
   }
 
   handleNameChanged(event) {
@@ -46,7 +46,7 @@ class NewDrink extends Component {
 
   render() {
     let startString = this.state.startTime.toISOString().substring(0, 16);
-    let finishString = this.state.finishTime.toISOString().substring(0, 16);
+    // let finishString = this.state.finishTime.toISOString().substring(0, 16);
 
     return (
       <form onSubmit={this.handleSubmit}>
@@ -54,7 +54,7 @@ class NewDrink extends Component {
         <input type='number' onChange={this.handleAmountChanged} value={this.state.amount} placeholder='Amount (cl)' min='0' required />
         <input type='number' onChange={this.handleStrengthChanged} value={this.state.strength} placeholder='Strength (%)' min='0' max='100' required />
         <input type='datetime-local' onChange={this.handleStartTimeChanged} required value={startString} />
-        <input type='datetime-local' onChange={this.handleFinishTimeChanged} required value={finishString} />
+        {/*<input type='datetime-local' onChange={this.handleFinishTimeChanged} required value={finishString} />*/}
         <input type='submit' />
       </form>
     );

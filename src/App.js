@@ -25,6 +25,7 @@ class App extends Component {
 
     this.onBasicDataChange = this.onBasicDataChange.bind(this);
     this.onNewDrinkSubmit = this.onNewDrinkSubmit.bind(this);
+    this.onFinishedDrink = this.onFinishedDrink.bind(this);
     this.toggleSave = this.toggleSave.bind(this);
     this.saveData = this.saveData.bind(this);
   }
@@ -38,6 +39,16 @@ class App extends Component {
     let tempDrinks = this.state.drinks;
     tempDrinks.push(data);
     this.setState({keygen: this.state.keygen + 1});
+    this.setState({drinks: tempDrinks});
+  }
+
+  onFinishedDrink(key) {
+    let tempDrinks = this.state.drinks;
+    tempDrinks.forEach(function (drink, index) {
+      if (drink.key === key) {
+        tempDrinks[index].finishTime = new Date();
+      }
+    });
     this.setState({drinks: tempDrinks});
   }
 
@@ -63,9 +74,13 @@ class App extends Component {
     const remember = this.state.canSave ? <div className='remember'><input type='checkbox' checked={this.state.exported} onChange={this.toggleSave} id='remember-box' /><label htmlFor='remember-box'>Remember my data</label></div> : <p>Your browser does not support local storage</p>;
 
     let rows = [];
+    alert(JSON.stringify(this.state.drinks));
+
+    let localThis = this;
 
     this.state.drinks.forEach(function (drink) {
-      rows.push(<Drink key={drink.key} name={drink.name} amount={drink.amount} strength={drink.strength} startTime={drink.startTime} finishTime={drink.finishTime} />)
+      rows.push(<Drink key={drink.key} id={drink.key} name={drink.name} amount={drink.amount} strength={drink.strength} startTime={drink.startTime} finishTime={drink.finishTime} onFinish={localThis.onFinishedDrink} />);
+      alert('pushing');
     });
 
     return (
