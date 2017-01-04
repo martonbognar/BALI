@@ -15,10 +15,9 @@ class App extends Component {
         gender: "female",
         weight: 0
       },
-      drinks: [
-        {key: 1, name: "Example drink 1", amount: 50, strength: 4.3, startTime: new Date(1483457356000), finishTime: new Date(1483458356000)},
-      ],
-      exported: false
+      drinks: [],
+      exported: false,
+      keygen: 0
     };
 
     this.onBasicDataChange = this.onBasicDataChange.bind(this);
@@ -31,8 +30,10 @@ class App extends Component {
   }
 
   onNewDrinkSubmit(data) {
+    data.key = this.state.keygen;
     let tempDrinks = this.state.drinks;
     tempDrinks.push(data);
+    this.setState({keygen: this.state.keygen + 1});
     this.setState({drinks: tempDrinks});
   }
 

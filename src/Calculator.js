@@ -9,6 +9,10 @@ class Calculator extends Component {
   }
 
   calculateEbac() {
+    if (this.props.drinks.length == 0) {
+      return 0;
+    }
+
     let alcohol = 0;
     let period = ((new Date()).getTime() - this.props.drinks[0].startTime.getTime()) / (1000 * 60 * 60);
     for (let i = 0; i < this.props.drinks.length; i++) {
