@@ -25,7 +25,6 @@ class App extends Component {
 
     this.onBasicDataChange = this.onBasicDataChange.bind(this);
     this.onNewDrinkSubmit = this.onNewDrinkSubmit.bind(this);
-    this.onFinishedDrink = this.onFinishedDrink.bind(this);
     this.toggleSave = this.toggleSave.bind(this);
     this.saveData = this.saveData.bind(this);
   }
@@ -38,24 +37,6 @@ class App extends Component {
     data.key = this.state.keygen;
     this.setState({keygen: this.state.keygen + 1});
     this.setState({drinks: this.state.drinks.concat([data])});
-  }
-
-  onFinishedDrink(key) {
-    // commented code would be nicer but does not work
-
-    // let tempIndex = -1;
-    let tempDrinks = this.state.drinks;
-    tempDrinks.forEach(function (drink, index) {
-      if (drink.key === key) {
-        // tempIndex = index;
-        tempDrinks[index].finishTime = new Date();
-      }
-    });
-    // if (tempIndex !== -1) {
-    //   this.setState({drinks[tempIndex].finishTime: new Date()});
-    // }
-
-    this.setState({drinks: tempDrinks});
   }
 
   toggleSave() {
@@ -81,12 +62,9 @@ class App extends Component {
 
     let rows = [];
 
-    let localThis = this;
-
     this.state.drinks.forEach(function (drink) {
-      let comp = <Drink key={drink.key} id={drink.key} name={drink.name} amount={drink.amount} strength={drink.strength} startTime={drink.startTime} finishTime={drink.finishTime} onFinish={localThis.onFinishedDrink} />;
-      rows.push(comp);
-    });
+      rows.push(<Drink key={drink.key} name={drink.name} amount={drink.amount} strength={drink.strength} startTime={drink.startTime} />);
+    }, this);
 
     return (
       <div>
