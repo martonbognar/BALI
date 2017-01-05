@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './Calculator.css'
 
 class Calculator extends Component {
   constructor(props) {
@@ -38,14 +39,14 @@ class Calculator extends Component {
   }
 
   ebac(alcohol, period) {
-    let bw = this.props.gender === "male" ? 0.58 : 0.49;
+    let bw = this.props.gender === 'male' ? 0.58 : 0.49;
     let result = ((0.806 * (alcohol / 10) * 1.2) / (bw * this.props.weight)) - (0.017 * period);
     return result > 0 ? result : 0;
   }
 
   render() {
     return (
-      <div>
+      <div id='result'>
         Alcohol: {this.state.value}
       </div>
     );

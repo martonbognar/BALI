@@ -9,13 +9,13 @@ class App extends Component {
   constructor() {
     super();
 
-    let localStorageExists = typeof(Storage) !== "undefined";
+    let localStorageExists = typeof(Storage) !== 'undefined';
 
     this.state = {
       basicData: {
-        name: localStorageExists && localStorage.name ? localStorage.name : "",
-        gender: localStorageExists && localStorage.gender ? localStorage.gender : "female",
-        weight: localStorageExists && localStorage.weight ? localStorage.weight : 0,
+        name: localStorageExists && localStorage.name ? localStorage.name : '',
+        gender: localStorageExists && localStorage.gender ? localStorage.gender : 'female',
+        weight: localStorageExists && localStorage.weight ? localStorage.weight : '',
       },
       drinks: localStorageExists && localStorage.drinks ? JSON.parse(localStorage.drinks) : [],
       exported: localStorageExists,
@@ -83,7 +83,7 @@ class App extends Component {
   render() {
     let remember = this.state.canSave ? <div className='remember'><input type='checkbox' checked={this.state.exported} onChange={this.toggleSave} id='remember-box' /><label htmlFor='remember-box'>Remember my data</label></div> : <p>Your browser does not support local storage</p>;
 
-    let basicInfo = this.state.showBasic ? <div id='basic-data'><Welcome /><BasicData name={this.state.basicData.name} gender={this.state.basicData.gender} weight={this.state.basicData.weight} onChange={this.onBasicDataChange} />{remember}</div> : <div id='basic-data'>Using app as {this.state.basicData.name}</div>;
+    let basicInfo = this.state.showBasic ? <div id='basic-data'><Welcome /><BasicData name={this.state.basicData.name} gender={this.state.basicData.gender} weight={this.state.basicData.weight} onChange={this.onBasicDataChange} />{remember}</div> : this.state.basicData.name !== '' ? <div id='basic-data'>Using app as {this.state.basicData.name}</div> : <div id='basic-data'>Set up basic data before using the app!</div>;
 
     let toggleButton = this.state.showBasic ? <button onClick={this.toggleBasic}>Hide basic info</button> : <button onClick={this.toggleBasic}>Show basic info</button>;
 

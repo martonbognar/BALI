@@ -20,7 +20,7 @@ class BasicData extends Component {
   }
 
   changeWeight(event) {
-    this.setState({weight: event.target.value});
+    this.setState({weight: parseFloat(event.target.value)});
   }
 
   handleSubmit(event) {

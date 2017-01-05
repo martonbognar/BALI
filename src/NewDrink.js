@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class NewDrink extends Component {
   constructor(props) {
     super(props);
-    this.resetState();
+    this.state = {name: '', amount: '', strength: '', startTime: new Date().getTime()};
 
     this.resetState = this.resetState.bind(this);
     this.refreshStartTime = this.refreshStartTime.bind(this);
@@ -15,7 +15,7 @@ class NewDrink extends Component {
   }
 
   resetState() {
-    this.state = {name: "", amount: 0, strength: 0, startTime: new Date().getTime()};
+    this.setState({name: '', amount: '', strength: '', startTime: new Date().getTime()});
   }
 
   componentDidMount() {
@@ -38,11 +38,11 @@ class NewDrink extends Component {
   }
 
   handleAmountChanged(event) {
-    this.setState({amount: event.target.value});
+    this.setState({amount: parseFloat(event.target.value)});
   }
 
   handleStrengthChanged(event) {
-    this.setState({strength: event.target.value});
+    this.setState({strength: parseFloat(event.target.value)});
   }
 
   handleStartTimeChanged(event) {
@@ -60,9 +60,9 @@ class NewDrink extends Component {
 
     return (
       <form onSubmit={this.handleSubmit}>
-        <input type='text' onChange={this.handleNameChanged} value={this.state.name} placeholder='Name' required />
-        <input type='number' onChange={this.handleAmountChanged} value={this.state.amount} placeholder='Amount (cl)' min='0' required />
-        <input type='number' onChange={this.handleStrengthChanged} value={this.state.strength} placeholder='Strength (%)' min='0' max='100' required />
+        <input type='text' onChange={this.handleNameChanged} value={this.state.name} placeholder='Drink Name' required />
+        <input type='number' onChange={this.handleAmountChanged} value={this.state.amount} placeholder='Amount (cl)' min='0' step='0.1' required />
+        <input type='number' onChange={this.handleStrengthChanged} value={this.state.strength} placeholder='Strength (%)' min='0' step='0.01' max='100' required />
         <input type='datetime-local' onChange={this.handleStartTimeChanged} required value={startString} />
         <input type='submit' />
       </form>
