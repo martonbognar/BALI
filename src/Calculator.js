@@ -27,7 +27,7 @@ class Calculator extends Component {
     }
 
     let alcohol = 0;
-    let period = ((new Date()).getTime() - this.props.drinks[0].startTime.getTime()) / (1000 * 60 * 60);
+    let period = ((new Date()).getTime() - new Date(this.props.drinks[0].startTime).getTime()) / (1000 * 60 * 60);
     for (let i = 0; i < this.props.drinks.length; i++) {
       let alcoholml = (parseInt(this.props.drinks[i].amount, 10) / 10) * parseInt(this.props.drinks[i].strength, 10);
       let grams = alcoholml * 0.789;

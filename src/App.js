@@ -15,11 +15,11 @@ class App extends Component {
       basicData: {
         name: localStorageExists && localStorage.name ? localStorage.name : "",
         gender: localStorageExists && localStorage.gender ? localStorage.gender : "female",
-        weight: localStorageExists && localStorage.weight ? localStorage.weight : 0
+        weight: localStorageExists && localStorage.weight ? localStorage.weight : 0,
       },
-      drinks: [],
+      drinks: localStorageExists && localStorage.drinks ? JSON.parse(localStorage.drinks) : [],
       exported: localStorageExists,
-      keygen: 0,
+      keygen: localStorageExists && localStorage.keygen ? localStorage.keygen : 0,
       canSave: localStorageExists,
       showBasic: !(localStorageExists && localStorage.name && localStorage.gender && localStorage.weight),
     };
@@ -29,6 +29,7 @@ class App extends Component {
     this.toggleSave = this.toggleSave.bind(this);
     this.toggleBasic = this.toggleBasic.bind(this);
     this.saveBasicData = this.saveBasicData.bind(this);
+    this.saveDrinks = this.saveDrinks.bind(this);
   }
 
   onBasicDataChange(data) {
@@ -39,7 +40,7 @@ class App extends Component {
   onNewDrinkSubmit(data) {
     data.key = this.state.keygen;
     this.setState({keygen: this.state.keygen + 1});
-    this.setState({drinks: this.state.drinks.concat([data])});
+    this.setState({drinks: this.state.drinks.concat([data])}, this.saveDrinks);
   }
 
   toggleBasic() {
@@ -61,6 +62,13 @@ class App extends Component {
         localStorage.removeItem('gender');
         localStorage.removeItem('weight');
       }
+    }
+  }
+
+  saveDrinks() {
+    if (this.state.canSave) {
+      localStorage.drinks = JSON.stringify(this.state.drinks);
+      localStorage.keygen = this.state.keygen;
     }
   }
 

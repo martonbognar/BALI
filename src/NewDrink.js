@@ -15,7 +15,7 @@ class NewDrink extends Component {
   }
 
   resetState() {
-    this.state = {name: "", amount: 0, strength: 0, startTime: new Date()};
+    this.state = {name: "", amount: 0, strength: 0, startTime: new Date().getTime()};
   }
 
   componentDidMount() {
@@ -26,7 +26,7 @@ class NewDrink extends Component {
   }
 
   refreshStartTime() {
-    this.setState({startTime: new Date()});
+    this.setState({startTime: new Date().getTime()});
   }
 
   componentWillUnmount() {
@@ -46,7 +46,7 @@ class NewDrink extends Component {
   }
 
   handleStartTimeChanged(event) {
-    this.setState({startTime: new Date(event.target.value)});
+    this.setState({startTime: new Date(event.target.value).getTime()});
   }
 
   handleSubmit(event) {
@@ -56,7 +56,7 @@ class NewDrink extends Component {
   }
 
   render() {
-    let startString = this.state.startTime.toISOString().substring(0, 16);
+    let startString = new Date(this.state.startTime).toISOString().substring(0, 16);
 
     return (
       <form onSubmit={this.handleSubmit}>
