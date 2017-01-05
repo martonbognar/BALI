@@ -26,6 +26,7 @@ class App extends Component {
 
     this.onBasicDataChange = this.onBasicDataChange.bind(this);
     this.onNewDrinkSubmit = this.onNewDrinkSubmit.bind(this);
+    this.removeDrink = this.removeDrink.bind(this);
     this.toggleSave = this.toggleSave.bind(this);
     this.toggleBasic = this.toggleBasic.bind(this);
     this.saveBasicData = this.saveBasicData.bind(this);
@@ -41,6 +42,13 @@ class App extends Component {
     data.key = this.state.keygen;
     this.setState({keygen: this.state.keygen + 1});
     this.setState({drinks: this.state.drinks.concat([data])}, this.saveDrinks);
+  }
+
+  removeDrink(drink) {
+    let tempDrinks = this.state.drinks;
+    let index = tempDrinks.indexOf(drink);
+    tempDrinks.splice(index, 1);
+    this.setState({drinks: tempDrinks}, this.saveDrinks);
   }
 
   toggleBasic() {
@@ -82,7 +90,7 @@ class App extends Component {
     let rows = [];
 
     this.state.drinks.forEach(function (drink) {
-      rows.push(<Drink key={drink.key} name={drink.name} amount={drink.amount} strength={drink.strength} startTime={drink.startTime} />);
+      rows.push(<Drink key={drink.key} name={drink.name} amount={drink.amount} strength={drink.strength} startTime={drink.startTime} onRemove={this.removeDrink} />);
     }, this);
 
     return (
