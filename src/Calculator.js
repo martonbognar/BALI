@@ -4,8 +4,21 @@ class Calculator extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {value: 0};
+
     this.ebac = this.ebac.bind(this);
     this.calculateEbac = this.calculateEbac.bind(this);
+  }
+
+  componentDidMount() {
+     this.timerID = setInterval(
+      () => this.calculateEbac(),
+      1000
+    );
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timerID);
   }
 
   calculateEbac() {
@@ -20,7 +33,7 @@ class Calculator extends Component {
       let grams = alcoholml * 0.789;
       alcohol += grams;
     }
-    return this.ebac(alcohol, period).toFixed(5);
+    this.setState({value: this.ebac(alcohol, period).toFixed(5)});
   }
 
   ebac(alcohol, period) {
@@ -30,11 +43,9 @@ class Calculator extends Component {
   }
 
   render() {
-    let value = this.calculateEbac();
-
     return (
       <div>
-        Alcohol: {value}
+        Alcohol: {this.state.value}
       </div>
     );
   }
