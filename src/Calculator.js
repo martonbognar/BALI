@@ -24,6 +24,7 @@ class Calculator extends Component {
   calculateEbac() {
     if (this.props.drinks.length === 0) {
       this.setState({value: 0});
+      return;
     }
 
     let alcohol = 0;
