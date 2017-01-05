@@ -6,6 +6,7 @@ class NewDrink extends Component {
     this.resetState();
 
     this.resetState = this.resetState.bind(this);
+    this.refreshStartTime = this.refreshStartTime.bind(this);
     this.handleNameChanged = this.handleNameChanged.bind(this);
     this.handleAmountChanged = this.handleAmountChanged.bind(this);
     this.handleStrengthChanged = this.handleStrengthChanged.bind(this);
@@ -15,6 +16,21 @@ class NewDrink extends Component {
 
   resetState() {
     this.state = {name: "", amount: 0, strength: 0, startTime: new Date()};
+  }
+
+  componentDidMount() {
+     this.timerID = setInterval(
+      () => this.refreshStartTime(),
+      1000
+    );
+  }
+
+  refreshStartTime() {
+    this.setState({startTime: new Date()});
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timerID);
   }
 
   handleNameChanged(event) {
