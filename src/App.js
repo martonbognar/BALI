@@ -28,11 +28,11 @@ class App extends Component {
     this.onNewDrinkSubmit = this.onNewDrinkSubmit.bind(this);
     this.toggleSave = this.toggleSave.bind(this);
     this.toggleBasic = this.toggleBasic.bind(this);
-    this.saveData = this.saveData.bind(this);
+    this.saveBasicData = this.saveBasicData.bind(this);
   }
 
   onBasicDataChange(data) {
-    this.setState({basicData: data}, this.saveData);
+    this.setState({basicData: data}, this.saveBasicData);
     this.setState({showBasic: false});
   }
 
@@ -47,10 +47,10 @@ class App extends Component {
   }
 
   toggleSave() {
-    this.setState({exported: !this.state.exported}, this.saveData);
+    this.setState({exported: !this.state.exported}, this.saveBasicData);
   }
 
-  saveData() {
+  saveBasicData() {
     if (this.state.canSave) {
       if (this.state.exported) {
         localStorage.name = this.state.basicData.name;
