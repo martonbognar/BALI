@@ -59,7 +59,7 @@ class NewDrink extends Component {
     let startString = new Date(this.state.startTime).toISOString().substring(0, 16);
 
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit} id='new-drink'>
         <input type='text' onChange={this.handleNameChanged} value={this.state.name} placeholder='Drink Name' required />
         <input type='number' onChange={this.handleAmountChanged} value={this.state.amount} placeholder='Amount (cl)' min='0' step='0.1' required />
         <input type='number' onChange={this.handleStrengthChanged} value={this.state.strength} placeholder='Strength (%)' min='0' step='0.01' max='100' required />

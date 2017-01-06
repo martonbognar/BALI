@@ -14,9 +14,13 @@ class Drink extends Component {
   render() {
     return (
       <div className='drink'>
-        <p>{this.props.name}: {this.props.amount} cl of {this.props.strength}% alcohol</p>
-        <p>Started drinking at {new Date(this.props.startTime).getTime()}</p>
-        <button onClick={this.remove}>Remove</button>
+        <h3>{this.props.name}</h3>
+        <ul>
+          <li>{this.props.amount} cl</li>
+          <li>{this.props.strength}%</li>
+          <li>Started at {new Date(this.props.startTime).toString()}</li>
+        </ul>
+        <button onClick={this.remove} className='remove'>Remove</button>
       </div>
     );
   }

@@ -33,7 +33,7 @@ a:hover {
   text-decoration: underline;
 }
 
-input, select {
+input, select, button {
   border: 1px solid #009900;
   background-color: #000;
   color: #fff;
@@ -64,8 +64,34 @@ input[type=submit] {
   text-decoration: none;
 }
 
-#main {
+button {
+  background-color: #003000;
+  border-color: #fff;
+}
+
+.drink {
+  display: inline-block;
+  padding: 1em;
+  border: 1px solid #009900;
+  margin: 1em;
+  max-width: 250px;
+  vertical-align: top;
+}
+
+.drink ul {
+  text-align: left;
+}
+
+button.remove {
+  background-color: #990000;
+}
+
+#basic-data, #new-drink {
   max-width: 750px;
+  margin: auto;
+}
+
+#main {
   margin: auto;
   padding: 0 5vw;
 }
