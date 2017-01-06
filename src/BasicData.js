@@ -20,10 +20,11 @@ class BasicData extends Component {
   }
 
   changeWeight(event) {
-    if (isNaN(event.target.value)) {
+    let input = event.target.value.replace(',', '.');
+    if (isNaN(input)) {
       this.setState({weight: ''});
     } else {
-      this.setState({weight: event.target.value});
+      this.setState({weight: input});
     }
   }
 

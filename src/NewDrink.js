@@ -39,18 +39,20 @@ class NewDrink extends Component {
   }
 
   handleAmountChanged(event) {
-    if (isNaN(event.target.value)) {
+    let input = event.target.value.replace(',', '.');
+    if (isNaN(input)) {
       this.setState({amount: ''});
     } else {
-      this.setState({amount: event.target.value});
+      this.setState({amount: input});
     }
   }
 
   handleStrengthChanged(event) {
-    if (isNaN(event.target.value)) {
+    let input = event.target.value.replace(',', '.');
+    if (isNaN(input)) {
       this.setState({strength: ''});
     } else {
-      this.setState({strength: event.target.value});
+      this.setState({strength: input});
     }
   }
 
