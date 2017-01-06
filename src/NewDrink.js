@@ -11,6 +11,7 @@ class NewDrink extends Component {
     this.handleAmountChanged = this.handleAmountChanged.bind(this);
     this.handleStrengthChanged = this.handleStrengthChanged.bind(this);
     this.handleStartTimeChanged = this.handleStartTimeChanged.bind(this);
+    this.submitData = this.submitData.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -38,21 +39,33 @@ class NewDrink extends Component {
   }
 
   handleAmountChanged(event) {
-    this.setState({amount: parseFloat(event.target.value)});
+    if (isNaN(event.target.value)) {
+      this.setState({amount: ''});
+    } else {
+      this.setState({amount: event.target.value});
+    }
   }
 
   handleStrengthChanged(event) {
-    this.setState({strength: parseFloat(event.target.value)});
+    if (isNaN(event.target.value)) {
+      this.setState({strength: ''});
+    } else {
+      this.setState({strength: event.target.value});
+    }
   }
 
   handleStartTimeChanged(event) {
     this.setState({startTime: new Date(event.target.value).getTime()});
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
+  submitData() {
     this.props.onChange(this.state);
     this.resetState();
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    this.setState({amount: parseFloat(this.state.amount), strength: parseFloat(this.state.strength)}, this.submitData);
   }
 
   render() {
@@ -61,8 +74,8 @@ class NewDrink extends Component {
     return (
       <form onSubmit={this.handleSubmit} id='new-drink'>
         <input type='text' onChange={this.handleNameChanged} value={this.state.name} placeholder='Drink Name' required />
-        <input type='number' onChange={this.handleAmountChanged} value={this.state.amount} placeholder='Amount (cl)' min='0' step='any' required />
-        <input type='number' onChange={this.handleStrengthChanged} value={this.state.strength} placeholder='Strength (%)' min='0' step='any' max='100' required />
+        <input type='text' onChange={this.handleAmountChanged} value={this.state.amount} placeholder='Amount (cl)' required />
+        <input type='text' onChange={this.handleStrengthChanged} value={this.state.strength} placeholder='Strength (%)' required />
         <input type='datetime-local' onChange={this.handleStartTimeChanged} required value={startString} />
         <input type='submit' />
       </form>

@@ -20,12 +20,16 @@ class BasicData extends Component {
   }
 
   changeWeight(event) {
-    this.setState({weight: parseFloat(event.target.value)});
+    if (isNaN(event.target.value)) {
+      this.setState({weight: ''});
+    } else {
+      this.setState({weight: event.target.value});
+    }
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.onChange(this.state);
+    this.setState({weight: parseFloat(this.state.weight)}, this.props.onChange(this.state));
   }
 
   render() {
@@ -36,7 +40,7 @@ class BasicData extends Component {
           <option value='female'>Female</option>
           <option value='male'>Male</option>
         </select>
-        <input type='number' min='0' placeholder='Weight (kg)' step='any' required value={this.state.weight} onChange={this.changeWeight} />
+        <input type='text' placeholder='Weight (kg)' required value={this.state.weight} onChange={this.changeWeight} />
         <input type='submit' />
       </form>
     );
