@@ -36,7 +36,7 @@ class BasicData extends Component {
           <option value='female'>Female</option>
           <option value='male'>Male</option>
         </select>
-        <input type='number' min='0' placeholder='Weight (kg)' step='0.01' required value={this.state.weight} onChange={this.changeWeight} />
+        <input type='number' min='0' placeholder='Weight (kg)' step='any' required value={this.state.weight} onChange={this.changeWeight} />
         <input type='submit' />
       </form>
     );
