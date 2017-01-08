@@ -22,11 +22,13 @@ class App extends Component {
       keygen: localStorageExists && localStorage.keygen ? localStorage.keygen : 0,
       canSave: localStorageExists,
       showBasic: !(localStorageExists && localStorage.name && localStorage.gender && localStorage.weight),
+      showNewDrink: false,
     };
 
     this.onBasicDataChange = this.onBasicDataChange.bind(this);
     this.onNewDrinkSubmit = this.onNewDrinkSubmit.bind(this);
     this.removeDrink = this.removeDrink.bind(this);
+    this.toggleDrinkForm = this.toggleDrinkForm.bind(this);
     this.toggleSave = this.toggleSave.bind(this);
     this.toggleBasic = this.toggleBasic.bind(this);
     this.saveBasicData = this.saveBasicData.bind(this);
@@ -42,6 +44,7 @@ class App extends Component {
     data.key = this.state.keygen;
     this.setState({keygen: this.state.keygen + 1});
     this.setState({drinks: this.state.drinks.concat([data])}, this.saveDrinks);
+    this.setState({showNewDrink: false});
   }
 
   removeDrink(drink) {
@@ -49,6 +52,10 @@ class App extends Component {
     let index = tempDrinks.indexOf(drink);
     tempDrinks.splice(index, 1);
     this.setState({drinks: tempDrinks}, this.saveDrinks);
+  }
+
+  toggleDrinkForm(event) {
+    this.setState({showNewDrink: !this.state.showNewDrink});
   }
 
   toggleBasic() {
@@ -132,14 +139,18 @@ class App extends Component {
       rows.push(<Drink key={drink.key} name={drink.name} amount={drink.amount} strength={drink.strength} startTime={drink.startTime} onRemove={this.removeDrink} />);
     }, this);
 
+    let newDrink = this.state.showNewDrink ? <div id='drink-form'><NewDrink onChange={this.onNewDrinkSubmit} /><button onClick={this.toggleDrinkForm} className='remove'>Cancel</button></div> : <button onClick={this.toggleDrinkForm}>New Drink</button>;
+
     let content = '';
 
     if (this.state.basicData.weight !== 0 && this.state.basicData.weight !== '') {
       content = (
         <div>
           {toggleButton}
-          <NewDrink onChange={this.onNewDrinkSubmit} />
-          {rows}
+          {newDrink}
+          <div id='drinks'>
+            {rows}
+          </div>
           <Calculator drinks={this.state.drinks} weight={this.state.basicData.weight} gender={this.state.basicData.gender} />
         </div>
       );

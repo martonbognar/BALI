@@ -52,9 +52,9 @@ class Drink extends Component {
       <div className='drink'>
         <h3>{this.props.name}</h3>
         <ul>
-          <li>{this.props.amount} cl</li>
-          <li>{this.props.strength}%</li>
-          <li>{this.state.timeText}</li>
+          <li><i className='fa fa-glass' aria-hidden='true'></i> {this.props.amount} cl</li>
+          <li><i className='fa fa-percent' aria-hidden='true'></i> {this.props.strength}%</li>
+          <li><i className='fa fa-clock-o' aria-hidden='true'></i> {this.state.timeText}</li>
         </ul>
         <button onClick={this.remove} className='remove'>Remove</button>
       </div>

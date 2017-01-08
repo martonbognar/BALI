@@ -37,11 +37,14 @@ class BasicData extends Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <input type='text' placeholder='Name' required value={this.state.name} onChange={this.changeName} />
+        <br />
         <select value={this.state.gender} onChange={this.changeGender}>
           <option value='female'>Female</option>
           <option value='male'>Male</option>
         </select>
+        <br />
         <input type='text' placeholder='Weight (kg)' required value={this.state.weight} onChange={this.changeWeight} />
+        <br />
         <input type='submit' />
       </form>
     );

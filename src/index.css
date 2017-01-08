@@ -42,7 +42,7 @@ input, select, button {
   padding: 5px;
   border-radius: 5px;
   width: 50vw;
-  max-width: 200px;
+  max-width: 300px;
 }
 
 input[type=checkbox] {
@@ -81,4 +81,11 @@ button.remove {
 #main {
   margin: auto;
   padding: 0 5vw;
+}
+
+#drink-form {
+  border: 1px solid white;
+  border-radius: 5px;
+  padding: 1em;
+  margin: 1em;
 }

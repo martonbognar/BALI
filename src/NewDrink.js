@@ -67,10 +67,15 @@ class NewDrink extends Component {
     return (
       <form onSubmit={this.handleSubmit} id='new-drink'>
         <input type='text' onChange={this.handleNameChanged} value={this.state.name} placeholder='Drink Name' required />
+        <br />
         <input type='text' onChange={this.handleAmountChanged} value={this.state.amount} placeholder='Amount (cl)' required />
+        <br />
         <input type='text' onChange={this.handleStrengthChanged} value={this.state.strength} placeholder='Strength (%)' required />
+        <br />
         <input type='datetime-local' onChange={this.handleStartTimeChanged} required value={startString} />
+        <br />
         <a href='#' onClick={this.refreshStartTime}>Set to now</a>
+        <br />
         <input type='submit' />
       </form>
     );
