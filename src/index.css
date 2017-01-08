@@ -55,7 +55,7 @@ input[type=number]::-webkit-outer-spin-button {
   margin: 0;
 }
 
-input[type=submit] {
+button.submit {
   display: inline-block;
   background-color: #009900;
   padding: 5px;
@@ -88,4 +88,12 @@ button.remove {
   border-radius: 5px;
   padding: 1em;
   margin: 1em;
+}
+
+@media (max-width: 1000px) {
+
+  #main {
+    padding: 0;
+  }
+
 }

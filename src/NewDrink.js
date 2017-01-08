@@ -76,7 +76,7 @@ class NewDrink extends Component {
         <br />
         <a href='#' onClick={this.refreshStartTime}>Set to now</a>
         <br />
-        <input type='submit' />
+        <button className='submit'>Submit</button>
       </form>
     );
   }

@@ -45,7 +45,7 @@ class BasicData extends Component {
         <br />
         <input type='text' placeholder='Weight (kg)' required value={this.state.weight} onChange={this.changeWeight} />
         <br />
-        <input type='submit' />
+        <button className='submit'>Submit</button>
       </form>
     );
   }

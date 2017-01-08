@@ -134,13 +134,13 @@ class Effects extends Component {
     }
 
     let behaviorList = [];
-    stage.behavior.forEach(function (string) {
-      behaviorList.push(<li>{string}</li>);
+    stage.behavior.forEach(function (string, index) {
+      behaviorList.push(<li key={index}>{string}</li>);
     });
 
     let impairmentList = [];
-    stage.impairment.forEach(function (string) {
-      impairmentList.push(<li>{string}</li>);
+    stage.impairment.forEach(function (string, index) {
+      impairmentList.push(<li key={index}>{string}</li>);
     });
 
     return (

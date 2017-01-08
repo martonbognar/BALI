@@ -1,5 +1,8 @@
 #effects {
   font-size: 0.6em;
+  text-align: left;
+  margin: auto;
+  display: inline-block;
 }
 
 #behavior, #impairment {

@@ -48,7 +48,9 @@ class Calculator extends Component {
   render() {
     return (
       <div id='result'>
-        Alcohol: {this.state.value}%
+        <div>
+          Alcohol: {this.state.value}%
+        </div>
         <Effects percentage={this.state.value} />
       </div>
     );
