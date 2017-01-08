@@ -1,0 +1,13 @@
+#effects {
+  font-size: 0.6em;
+}
+
+#behavior, #impairment {
+  display: inline-block;
+  text-align: left;
+  vertical-align: top;
+}
+
+h3 {
+  text-align: center;
+}

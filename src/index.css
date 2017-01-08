@@ -69,19 +69,6 @@ button {
   border-color: #fff;
 }
 
-.drink {
-  display: inline-block;
-  padding: 1em;
-  border: 1px solid #009900;
-  margin: 1em;
-  max-width: 250px;
-  vertical-align: top;
-}
-
-.drink ul {
-  text-align: left;
-}
-
 button.remove {
   background-color: #990000;
 }

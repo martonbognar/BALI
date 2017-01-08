@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './Effects.css'
 
 class Effects extends Component {
   constructor(props) {
@@ -145,7 +146,7 @@ class Effects extends Component {
     return (
       <div id='effects'>
         <div id='behavior'>
-          <h3>Effects in behavior</h3>
+          <h3>Effects</h3>
           <ul>
             {behaviorList}
           </ul>
