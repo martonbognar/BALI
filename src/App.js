@@ -4,6 +4,7 @@ import Calculator from './Calculator'
 import BasicData from './BasicData'
 import Welcome from './Welcome'
 import NewDrink from './NewDrink'
+import AdSense from './AdSense'
 
 class App extends Component {
   constructor() {
@@ -160,6 +161,7 @@ class App extends Component {
       <div>
         {basicInfo}
         {content}
+        <AdSense />
       </div>
     );
   }
