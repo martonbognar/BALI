@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Effects from './Effects.js'
 import './Calculator.css'
 
 class Calculator extends Component {
@@ -48,6 +49,7 @@ class Calculator extends Component {
     return (
       <div id='result'>
         Alcohol: {this.state.value}
+        <Effects percentage={this.state.value} />
       </div>
     );
   }
