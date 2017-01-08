@@ -7,7 +7,7 @@ class Effects extends Component {
     this.state = {description:
       [
         {
-          percentageFloor: 0,
+          percentageFloor: 0.0001,
           percentageCeiling: 0.03,
           behavior: [
             "Average individual appears normal",
