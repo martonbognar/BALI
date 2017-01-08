@@ -81,11 +81,50 @@ class App extends Component {
   }
 
   render() {
-    let remember = this.state.canSave ? <div className='remember'><input type='checkbox' checked={this.state.exported} onChange={this.toggleSave} id='remember-box' /><label htmlFor='remember-box'>Remember my data</label></div> : <p>Your browser does not support local storage</p>;
+    let remember = '';
+    if (this.state.canSave) {
+      remember = (
+        <div className='remember'>
+          <input type='checkbox' checked={this.state.exported} onChange={this.toggleSave} id='remember-box' />
+          <label htmlFor='remember-box'>Remember my data</label>
+        </div>
+        );
+    } else {
+      remember = <p>Your browser does not support local storage</p>;
+    }
 
-    let basicInfo = this.state.showBasic ? <div id='basic-data'><Welcome /><BasicData name={this.state.basicData.name} gender={this.state.basicData.gender} weight={this.state.basicData.weight} onChange={this.onBasicDataChange} />{remember}</div> : this.state.basicData.name !== '' ? <div id='basic-data'><h2>Using app as {this.state.basicData.name}</h2></div> : <div id='basic-data'><h2>Set up basic data before using the app!</h2></div>;
+    let basicInfo = '';
+    if (this.state.showBasic) {
+      basicInfo = (
+        <div id='basic-data'>
+          <Welcome />
+          <BasicData name={this.state.basicData.name} gender={this.state.basicData.gender} weight={this.state.basicData.weight} onChange={this.onBasicDataChange} />
+          {remember}
+        </div>
+        );
+    } else {
+      if (this.state.basicData.name !== '') {
+        basicInfo = (
+          <div id='basic-data'>
+            <h2>Using app as {this.state.basicData.name}</h2>
+          </div>
+        );
+      } else {
+        basicInfo = (
+          <div id='basic-data'>
+            <h2>Set up basic data before using the app!</h2>
+          </div>
+        );
+      }
+    }
 
-    let toggleButton = this.state.showBasic ? <button onClick={this.toggleBasic}>Hide basic info</button> : <button onClick={this.toggleBasic}>Show basic info</button>;
+    let toggleButton = '';
+
+    if (this.state.showBasic) {
+      toggleButton = (<button onClick={this.toggleBasic}>Hide basic info</button>);
+    } else {
+      toggleButton = (<button onClick={this.toggleBasic}>Show basic info</button>);
+    }
 
     let rows = [];
 
@@ -93,13 +132,23 @@ class App extends Component {
       rows.push(<Drink key={drink.key} name={drink.name} amount={drink.amount} strength={drink.strength} startTime={drink.startTime} onRemove={this.removeDrink} />);
     }, this);
 
+    let content = '';
+
+    if (this.state.basicData.weight !== 0 && this.state.basicData.weight !== '') {
+      content = (
+        <div>
+          {toggleButton}
+          <NewDrink onChange={this.onNewDrinkSubmit} />
+          {rows}
+          <Calculator drinks={this.state.drinks} weight={this.state.basicData.weight} gender={this.state.basicData.gender} />
+        </div>
+      );
+    }
+
     return (
       <div>
         {basicInfo}
-        {toggleButton}
-        <NewDrink onChange={this.onNewDrinkSubmit} />
-        {rows}
-        <Calculator drinks={this.state.drinks} weight={this.state.basicData.weight} gender={this.state.basicData.gender} />
+        {content}
       </div>
     );
   }
