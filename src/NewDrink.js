@@ -19,19 +19,9 @@ class NewDrink extends Component {
     this.setState({name: '', amount: '', strength: '', startTime: new Date().getTime()});
   }
 
-  componentDidMount() {
-     this.timerID = setInterval(
-      () => this.refreshStartTime(),
-      1000
-    );
-  }
-
-  refreshStartTime() {
+  refreshStartTime(event) {
+    event.preventDefault();
     this.setState({startTime: new Date().getTime()});
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.timerID);
   }
 
   handleNameChanged(event) {
@@ -71,7 +61,8 @@ class NewDrink extends Component {
   }
 
   render() {
-    let startString = new Date(this.state.startTime).toISOString().substring(0, 16);
+    let startTime = new Date(this.state.startTime);
+    let startString = startTime.getFullYear() + '-' + ('0' + (startTime.getMonth() + 1)).slice(-2) + '-' + ('0' + startTime.getDate()).slice(-2) + 'T' + ('0' + startTime.getHours()).slice(-2) + ':' + ('0' + startTime.getMinutes()).slice(-2);
 
     return (
       <form onSubmit={this.handleSubmit} id='new-drink'>
@@ -79,6 +70,7 @@ class NewDrink extends Component {
         <input type='text' onChange={this.handleAmountChanged} value={this.state.amount} placeholder='Amount (cl)' required />
         <input type='text' onChange={this.handleStrengthChanged} value={this.state.strength} placeholder='Strength (%)' required />
         <input type='datetime-local' onChange={this.handleStartTimeChanged} required value={startString} />
+        <a href='#' onClick={this.refreshStartTime}>Set to now</a>
         <input type='submit' />
       </form>
     );
