@@ -29,6 +29,7 @@ class App extends Component {
     this.onBasicDataChange = this.onBasicDataChange.bind(this);
     this.onNewDrinkSubmit = this.onNewDrinkSubmit.bind(this);
     this.removeDrink = this.removeDrink.bind(this);
+    this.duplicateDrink = this.duplicateDrink.bind(this);
     this.toggleDrinkForm = this.toggleDrinkForm.bind(this);
     this.toggleSave = this.toggleSave.bind(this);
     this.toggleBasic = this.toggleBasic.bind(this);
@@ -53,6 +54,15 @@ class App extends Component {
     let index = tempDrinks.indexOf(drink);
     tempDrinks.splice(index, 1);
     this.setState({drinks: tempDrinks}, this.saveDrinks);
+  }
+
+  duplicateDrink(drink) {
+    this.onNewDrinkSubmit({
+      name: drink.props.name,
+      amount: drink.props.amount,
+      strength: drink.props.strength,
+      startTime: new Date().getTime(),
+    });
   }
 
   toggleDrinkForm(event) {
@@ -137,7 +147,7 @@ class App extends Component {
     let rows = [];
 
     this.state.drinks.forEach(function (drink) {
-      rows.push(<Drink key={drink.key} name={drink.name} amount={drink.amount} strength={drink.strength} startTime={drink.startTime} onRemove={this.removeDrink} />);
+      rows.push(<Drink key={drink.key} name={drink.name} amount={drink.amount} strength={drink.strength} startTime={drink.startTime} onRemove={this.removeDrink} onDuplicate={this.duplicateDrink} />);
     }, this);
 
     let newDrink = this.state.showNewDrink ? <div id='drink-form'><NewDrink onChange={this.onNewDrinkSubmit} /><button onClick={this.toggleDrinkForm} className='remove'>Cancel</button></div> : <button onClick={this.toggleDrinkForm}>New Drink</button>;

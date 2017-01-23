@@ -8,6 +8,7 @@ class Drink extends Component {
     this.state = {timeText: this.intervalToText(this.props.startTime)}
 
     this.remove = this.remove.bind(this);
+    this.duplicate = this.duplicate.bind(this);
   }
 
   componentDidMount() {
@@ -47,6 +48,10 @@ class Drink extends Component {
     this.props.onRemove(this);
   }
 
+  duplicate() {
+    this.props.onDuplicate(this);
+  }
+
   render() {
     return (
       <div className='drink'>
@@ -57,6 +62,7 @@ class Drink extends Component {
           <li><i className='fa fa-clock-o' aria-hidden='true'></i> {this.state.timeText}</li>
         </ul>
         <button onClick={this.remove} className='remove'>Remove</button>
+        <button onClick={this.duplicate}>Duplicate</button>
       </div>
     );
   }
