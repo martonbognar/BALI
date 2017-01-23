@@ -33,10 +33,12 @@ class NewDrink extends Component {
   }
 
   handlePresetChanged(event) {
-    this.state.drinkList.forEach(function (drink) {
-      if (drink.key === event.target.value) {
-        this.setState({name: drink.name, amount: drink.amount, strength: drink.strength});
-      }
+    this.state.drinkList.forEach(function (category) {
+      category.values.forEach(function (drink) {
+        if (drink.key === event.target.value) {
+          this.setState({name: drink.name, amount: drink.amount, strength: drink.strength});
+        }
+      }, this);
     }, this);
     this.setState({selectedDrink: event.target.value});
   }
@@ -83,8 +85,12 @@ class NewDrink extends Component {
 
     let drinks = [];
 
-    this.state.drinkList.forEach(function (drink) {
-      drinks.push(<option value={drink.key} key={drink.key}>{drink.name}</option>);
+    this.state.drinkList.forEach(function (category) {
+      let values = [];
+      category.values.forEach(function (drink) {
+        values.push(<option value={drink.key} key={drink.key}>{drink.name}</option>);
+      });
+      drinks.push(<optgroup label={category.categoryName}>{values}</optgroup>);
     });
 
     return (
