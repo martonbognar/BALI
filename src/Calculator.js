@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Effects from './Effects'
+import ProgressBar from './ProgressBar'
 import './Calculator.css'
 
 class Calculator extends Component {
@@ -51,6 +52,7 @@ class Calculator extends Component {
         <div>
           Alcohol: {this.state.value}%
         </div>
+        <ProgressBar percentage={this.state.value} />
         <Effects percentage={this.state.value} />
       </div>
     );
